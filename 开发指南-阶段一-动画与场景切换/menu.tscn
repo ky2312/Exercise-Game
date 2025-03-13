@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://c12ebx64hwe5u"]
+
+[ext_resource type="Script" uid="uid://j3e3hurqos2j" path="res://menu.gd" id="1_lti8b"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lti8b")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 198.0
+offset_top = 177.0
+offset_right = 426.0
+offset_bottom = 237.0
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "文本"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "进入"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_scene_to_main"]
