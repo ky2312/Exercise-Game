@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvt303ej8rh7o"]
+[gd_scene load_steps=5 format=3 uid="uid://cvt303ej8rh7o"]
 
 [ext_resource type="Script" uid="uid://bfj6wqj6rvqhg" path="res://block/block_manager.gd" id="1_wosiw"]
-[ext_resource type="PackedScene" uid="uid://cyw1dilnghr8y" path="res://block/block.tscn" id="2_j817p"]
+[ext_resource type="PackedScene" uid="uid://ctjwmg30dbeeh" path="res://res/block-1.res" id="2_ww8yj"]
+[ext_resource type="PackedScene" uid="uid://b0eya0gciibr6" path="res://res/block-2.res" id="3_7rwwl"]
+[ext_resource type="PackedScene" uid="uid://b5h2r6c0ykcb5" path="res://res/block-3.res" id="4_agxic"]
 
 [node name="BlockManager" type="Node2D"]
 script = ExtResource("1_wosiw")
-block = ExtResource("2_j817p")
+blocks = Array[PackedScene]([ExtResource("2_ww8yj"), ExtResource("3_7rwwl"), ExtResource("4_agxic")])
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5

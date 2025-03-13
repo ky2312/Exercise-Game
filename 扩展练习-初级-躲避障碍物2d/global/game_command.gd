@@ -15,6 +15,9 @@ func game_end():
 	print("游戏结束")
 	Engine.time_scale = 0
 
+func game_reload():
+	get_tree().reload_current_scene()
+
 func score_change():
 	GameModel.score += 1
 	EventBus.emit("score_changed")

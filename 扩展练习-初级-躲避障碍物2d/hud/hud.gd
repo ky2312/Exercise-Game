@@ -3,6 +3,7 @@ extends CanvasLayer
 @onready var hp: ProgressBar = %Hp
 @onready var score_label: Label = %Score
 @onready var game_end: VBoxContainer = %GameEnd
+@onready var reload_button: Button = %ReloadButton
 
 func _ready() -> void:
 	hp.max_value = GameModel.max_hp
@@ -24,3 +25,6 @@ func _show_hp():
 
 func _game_end():
 	game_end.show()
+
+func _reload() -> void:
+	GameCommand.game_reload()
