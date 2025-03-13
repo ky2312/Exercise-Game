@@ -2,7 +2,7 @@ config_version=5
 
 [application]
 
-config/name="开发指南-阶段一:动画与场景切换"
+config/name="开发指南-阶段一-动画与场景切换"
 run/main_scene="uid://c12ebx64hwe5u"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
