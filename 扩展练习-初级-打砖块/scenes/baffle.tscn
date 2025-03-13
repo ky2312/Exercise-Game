@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://18fe542t55ku"]
+
+[ext_resource type="Script" uid="uid://epayndv5y70x" path="res://scripts/baffle.gd" id="1_ihjpo"]
+[ext_resource type="Texture2D" uid="uid://dpfqhmj3axeig" path="res://icon.svg" id="1_ikex5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v3yqn"]
+size = Vector2(138, 28)
+
+[node name="Bbaffle" type="CharacterBody2D"]
+script = ExtResource("1_ihjpo")
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(1.08594, 0.21875)
+texture = ExtResource("1_ikex5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_v3yqn")
+
+[node name="BallEnterMarker" type="Marker2D" parent="."]
+position = Vector2(0, -33)

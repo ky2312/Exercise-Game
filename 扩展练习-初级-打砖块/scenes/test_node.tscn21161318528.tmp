@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://wxjsj7k2v2we"]
+
+[ext_resource type="Texture2D" uid="uid://doxdu36vhkktb" path="res://assets/godot-icon.png" id="1_83weg"]
+[ext_resource type="Script" uid="uid://bceslcxxa7qoh" path="res://scenes/test_node_rigid_body_2d.gd" id="1_wvxne"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vyx0e"]
+radius = 13.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_83weg"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_wvxne"]
+normal = Vector2(-1, 0)
+
+[node name="TestNode" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(52, 41)
+script = ExtResource("1_wvxne")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_vyx0e")
+
+[node name="Godot-icon" type="Sprite2D" parent="RigidBody2D"]
+scale = Vector2(0.203125, 0.203125)
+texture = ExtResource("1_83weg")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(79, 527)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_83weg")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(1053, 132)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("WorldBoundaryShape2D_wvxne")

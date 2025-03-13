@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvt303ej8rh7o"]
+
+[ext_resource type="Script" uid="uid://bfj6wqj6rvqhg" path="res://block/block_manager.gd" id="1_wosiw"]
+[ext_resource type="PackedScene" uid="uid://cyw1dilnghr8y" path="res://block/block.tscn" id="2_j817p"]
+
+[node name="BlockManager" type="Node2D"]
+script = ExtResource("1_wosiw")
+block = ExtResource("2_j817p")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="InitMarker" type="Marker2D" parent="."]
+position = Vector2(0, -49)
+
+[connection signal="timeout" from="Timer" to="." method="_add_block"]

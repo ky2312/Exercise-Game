@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://06csfok7bmq1"]
+
+[ext_resource type="Script" uid="uid://dlaftte0y3ft7" path="res://scripts/bounce.gd" id="1_y7kg7"]
+
+[node name="Bounce" type="Area2D"]
+script = ExtResource("1_y7kg7")
+
+[connection signal="body_entered" from="." to="." method="_on_ball_entered"]

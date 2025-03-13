@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://xbqk5xmrfms0"]
+
+[ext_resource type="Script" uid="uid://cbdrmy7gibjd" path="res://scripts/level.gd" id="1_dj4wq"]
+[ext_resource type="PackedScene" uid="uid://dmajf7ini4v1i" path="res://scenes/ball.tscn" id="2_k0mew"]
+[ext_resource type="PackedScene" uid="uid://18fe542t55ku" path="res://scenes/baffle.tscn" id="3_b0vvs"]
+[ext_resource type="PackedScene" uid="uid://bhyltmqsixk5r" path="res://scenes/brick.tscn" id="4_oyk6k"]
+[ext_resource type="PackedScene" uid="uid://cxoxawomj8ryv" path="res://scenes/wall.tscn" id="5_gycjm"]
+[ext_resource type="PackedScene" uid="uid://cigs7stiq8138" path="res://scenes/hud.tscn" id="6_8i1lk"]
+[ext_resource type="PackedScene" uid="uid://baqpfaujo63sc" path="res://scenes/kill.tscn" id="7_hgky1"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tipki"]
+
+[node name="Level2" type="Node2D"]
+script = ExtResource("1_dj4wq")
+ball = ExtResource("2_k0mew")
+
+[node name="Baffle" parent="." instance=ExtResource("3_b0vvs")]
+position = Vector2(562, 541)
+
+[node name="Brick" type="Node" parent="."]
+
+[node name="Brick" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(249, 249)
+
+[node name="Brick2" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(377, 249)
+
+[node name="Brick3" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(505, 249)
+
+[node name="Brick4" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(633, 249)
+
+[node name="Brick5" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(761, 249)
+
+[node name="Brick8" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(249, 216)
+
+[node name="Brick9" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(377, 216)
+
+[node name="Brick10" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(505, 216)
+
+[node name="Brick11" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(633, 216)
+
+[node name="Brick12" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(761, 216)
+
+[node name="Brick13" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(889, 249)
+
+[node name="Brick14" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(889, 216)
+
+[node name="Brick15" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(505, 183)
+
+[node name="Brick16" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(633, 184)
+
+[node name="Brick17" parent="Brick" instance=ExtResource("4_oyk6k")]
+position = Vector2(570, 151)
+
+[node name="Wall" parent="." instance=ExtResource("5_gycjm")]
+
+[node name="HUD" parent="." instance=ExtResource("6_8i1lk")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Kill" parent="." instance=ExtResource("7_hgky1")]
+position = Vector2(561, 591)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Kill"]
+shape = SubResource("WorldBoundaryShape2D_tipki")
+
+[connection signal="emitted" from="Baffle" to="." method="_on_baffle_emitted"]
