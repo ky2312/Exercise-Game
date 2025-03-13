@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LevelResource" load_steps=2 format=3 uid="uid://d3imou2d1w6l8"]
+
+[ext_resource type="Script" uid="uid://b1fkjm0k48rli" path="res://core/script/level_resource.gd" id="1_4u62t"]
+
+[resource]
+script = ExtResource("1_4u62t")
+name = "一般"
+wood_generate_speed = 2.0
+wood_speed = 150.0
+metadata/_custom_type_script = "uid://b1fkjm0k48rli"

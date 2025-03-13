@@ -1,0 +1,45 @@
+[gd_scene load_steps=11 format=3 uid="uid://b1daxtgtbed76"]
+
+[ext_resource type="Script" uid="uid://c2iktag5l2s0m" path="res://core/main.gd" id="1_xa854"]
+[ext_resource type="PackedScene" uid="uid://dsji6gqhrw8wy" path="res://core/wood_manager.tscn" id="2_kagtj"]
+[ext_resource type="Script" uid="uid://b1fkjm0k48rli" path="res://core/script/level_resource.gd" id="2_xhu5d"]
+[ext_resource type="PackedScene" uid="uid://rfun73vhbo5f" path="res://core/bird/bird.tscn" id="3_cus2n"]
+[ext_resource type="Resource" uid="uid://57255alcu62v" path="res://core/res/level_easy.tres" id="3_rayt5"]
+[ext_resource type="Resource" uid="uid://d3imou2d1w6l8" path="res://core/res/level_normal.tres" id="4_510js"]
+[ext_resource type="PackedScene" uid="uid://hrig8akkuxiw" path="res://core/floor/floor.tscn" id="4_kagtj"]
+[ext_resource type="Texture2D" uid="uid://b88ihhhpgaqln" path="res://core/assets/Game Objects/background-day.png" id="4_xa854"]
+[ext_resource type="Resource" uid="uid://gir2wajtxodf" path="res://core/res/level_hard.tres" id="5_7ua4h"]
+[ext_resource type="PackedScene" uid="uid://dvbxfm181jb14" path="res://core/hud/hud.tscn" id="5_jsmgm"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_xa854")
+current_level_index = 1
+levels = Array[ExtResource("2_xhu5d")]([ExtResource("3_rayt5"), ExtResource("4_510js"), ExtResource("5_7ua4h")])
+metadata/_edit_horizontal_guides_ = [640.0]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(239.125, 399)
+scale = Vector2(1.67274, 1.56641)
+texture = ExtResource("4_xa854")
+
+[node name="StartMarker" type="Marker2D" parent="."]
+position = Vector2(240, 400)
+
+[node name="WoodManager" parent="." instance=ExtResource("2_kagtj")]
+
+[node name="Floor" parent="." instance=ExtResource("4_kagtj")]
+
+[node name="Bird" parent="." instance=ExtResource("3_cus2n")]
+visible = false
+position = Vector2(240, 342)
+
+[node name="HUD" parent="." instance=ExtResource("5_jsmgm")]
+
+[node name="GamePlayingTimer" type="Timer" parent="."]
+
+[connection signal="touch" from="WoodManager" to="." method="_on_wood_manager_touch"]
+[connection signal="entered" from="Floor" to="." method="_on_floor_entered"]
+[connection signal="exited" from="Bird" to="." method="_on_bird_exited"]
+[connection signal="game_end" from="HUD" to="." method="_on_hud_game_end"]
+[connection signal="game_start" from="HUD" to="." method="_on_hud_game_start"]
+[connection signal="timeout" from="GamePlayingTimer" to="." method="_on_game_playing_timer_timeout"]

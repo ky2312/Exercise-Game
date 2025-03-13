@@ -1,0 +1,192 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvbxfm181jb14"]
+
+[ext_resource type="Script" uid="uid://c4emx8apa8802" path="res://core/hud/hud.gd" id="1_37p78"]
+[ext_resource type="Texture2D" uid="uid://cmw3djhwk2h3d" path="res://core/assets/UI/gameover.png" id="2_7pn8s"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_37p78")
+metadata/_edit_vertical_guides_ = [104.0, 376.0]
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Main" type="Control" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Menu/Main"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -292.0
+offset_bottom = -207.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "飞行小鸟"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="Menu/Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -16.0
+offset_right = 136.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "开始"
+
+[node name="SettingButton" type="Button" parent="Menu/Main"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 448.0
+offset_right = 376.0
+offset_bottom = 512.0
+text = "设置"
+
+[node name="EndButton" type="Button" parent="Menu/Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = 112.0
+offset_right = 136.0
+offset_bottom = 176.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "结束"
+
+[node name="Setting" type="Control" parent="Menu"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Level" type="Button" parent="Menu/Setting"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 384.0
+offset_right = 376.0
+offset_bottom = 448.0
+text = "难度"
+
+[node name="MenuButton" type="MenuButton" parent="Menu/Setting/Level"]
+layout_mode = 0
+offset_right = 272.0
+offset_bottom = 64.0
+
+[node name="BackButton" type="Button" parent="Menu"]
+visible = false
+offset_left = 104.0
+offset_top = 704.0
+offset_right = 376.0
+offset_bottom = 768.0
+text = "返回"
+
+[node name="Playing" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score" type="Label" parent="Playing"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -249.0
+offset_bottom = -207.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="Label" parent="Playing"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 88.0
+offset_bottom = 136.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "难度"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameEnd" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Gameover" type="Sprite2D" parent="GameEnd"]
+position = Vector2(247, 306)
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("2_7pn8s")
+
+[node name="StartButton" type="Button" parent="GameEnd"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = 48.0
+offset_right = 136.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "再来一次"
+
+[node name="EndButton" type="Button" parent="GameEnd"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = 112.0
+offset_right = 136.0
+offset_bottom = 176.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "结束"
+
+[connection signal="visibility_changed" from="Menu/Main" to="." method="_on_main_visibility_changed"]
+[connection signal="pressed" from="Menu/Main/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Menu/Main/EndButton" to="." method="_on_end_button_pressed"]
+[connection signal="pressed" from="Menu/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="GameEnd/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="GameEnd/EndButton" to="." method="_on_end_button_pressed"]

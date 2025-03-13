@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LevelResource" load_steps=2 format=3 uid="uid://gir2wajtxodf"]
+
+[ext_resource type="Script" uid="uid://b1fkjm0k48rli" path="res://core/script/level_resource.gd" id="1_8aicf"]
+
+[resource]
+script = ExtResource("1_8aicf")
+name = "困难"
+wood_generate_speed = 1.5
+wood_speed = 200.0
+metadata/_custom_type_script = "uid://b1fkjm0k48rli"
