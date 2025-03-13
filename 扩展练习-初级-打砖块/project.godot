@@ -2,7 +2,7 @@ config_version=5
 
 [application]
 
-config/name="开发指南-阶段一:弹球打砖块"
+config/name="开发指南-阶段一-弹球打砖块"
 run/main_scene="uid://bkis8igyvmuys"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
