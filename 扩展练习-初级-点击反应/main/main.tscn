@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://dipvkhlvqdblt"]
+
+[ext_resource type="PackedScene" uid="uid://dng6jf3hb8kqf" path="res://block/block.tscn" id="1_53q0u"]
+[ext_resource type="Script" uid="uid://xgosioht47kp" path="res://main/main.gd" id="1_pjrb6"]
+[ext_resource type="PackedScene" uid="uid://dmnycv8deoeua" path="res://HUD/hud.tscn" id="3_xwkvk"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_pjrb6")
+block_scene = ExtResource("1_53q0u")
+
+[node name="HUD" parent="." instance=ExtResource("3_xwkvk")]

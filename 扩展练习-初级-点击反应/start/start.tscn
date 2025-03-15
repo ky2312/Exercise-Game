@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://chfcfeo1y3mlj"]
+
+[ext_resource type="Script" uid="uid://dvx2hu4w3pucp" path="res://start/start.gd" id="1_hdi1w"]
+
+[node name="Start" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hdi1w")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 336.0
+offset_top = -37.0
+offset_right = -336.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "点击屏幕生成方块，点击方块销毁它。"
+horizontal_alignment = 1
+vertical_alignment = 1

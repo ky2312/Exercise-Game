@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw17mtrgoiosr"]
+
+[ext_resource type="Script" uid="uid://cxl2hmkjao4nd" path="res://game-manager/game_manager.gd" id="1_orfl5"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_orfl5")
+_countdown = 5
