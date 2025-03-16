@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqc1iur2odj0y"]
+
+[ext_resource type="Script" uid="uid://cajco2g6frkbd" path="res://scenes/main/main.gd" id="1_hyk8p"]
+[ext_resource type="PackedScene" uid="uid://cucqsdfbjqsu5" path="res://scenes/section_control/section_control.tscn" id="2_iuonh"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_hyk8p")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SectionControl" parent="." instance=ExtResource("2_iuonh")]

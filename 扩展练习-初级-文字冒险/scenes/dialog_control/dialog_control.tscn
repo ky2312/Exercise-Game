@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccnqmvqx7he6l"]
+
+[ext_resource type="Script" uid="uid://bdop3kttgtum6" path="res://scenes/dialog_control/dialog_control.gd" id="1_awnyu"]
+[ext_resource type="PackedScene" uid="uid://72xrfybxaluf" path="res://scenes/dialog_control/avatar_control.tscn" id="2_baa46"]
+[ext_resource type="PackedScene" uid="uid://bxlg2k4ro6h1j" path="res://scenes/dialog_control/text_control.tscn" id="3_awnyu"]
+
+[node name="DialogControl" type="CanvasLayer"]
+script = ExtResource("1_awnyu")
+
+[node name="MainContainer" type="HBoxContainer" parent="."]
+anchors_preset = -1
+anchor_top = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="MainContainer"]
+
+[node name="SelectContainer" type="VBoxContainer" parent="MainContainer/CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.5
+anchor_right = 0.6
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="AvatarControl" parent="MainContainer" instance=ExtResource("2_baa46")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TextControl" parent="MainContainer" instance=ExtResource("3_awnyu")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "xxx123"
+
+[node name="AvatarControl2" parent="MainContainer" instance=ExtResource("2_baa46")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="click" from="MainContainer/TextControl" to="." method="_on_text_click"]

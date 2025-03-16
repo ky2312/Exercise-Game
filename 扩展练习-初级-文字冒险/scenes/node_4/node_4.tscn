@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdcnp05whld4"]
+
+[ext_resource type="PackedScene" uid="uid://ccnqmvqx7he6l" path="res://scenes/dialog_control/dialog_control.tscn" id="1_g0iuj"]
+[ext_resource type="Script" uid="uid://opm2h5wp3o8y" path="res://scenes/node_4/node_4.gd" id="1_h4had"]
+
+[node name="Node4" type="Node2D"]
+script = ExtResource("1_h4had")
+
+[node name="MainContainer" parent="." instance=ExtResource("1_g0iuj")]
+unique_name_in_owner = true
