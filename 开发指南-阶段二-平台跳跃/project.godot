@@ -1,0 +1,24 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="开发指南-阶段二-平台跳跃"
+run/main_scene="uid://2pnfimerwibv"
+config/features=PackedStringArray("4.4", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://game_manager.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-framework/plugin.cfg")
