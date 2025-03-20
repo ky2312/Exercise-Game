@@ -12,14 +12,14 @@ func _ready() -> void:
 			_copy_tile(from_position, to_position)
 		_set_collision_shape()
 	
-	self.body_entered.connect(func(node: Node2D):
-		if node is Player:
-			node.set_on_ladder(true)
-	)
-	self.body_exited.connect(func(node: Node2D):
-		if node is Player:
-			node.set_on_ladder(false)
-	)
+	#self.body_entered.connect(func(node: Node2D):
+		#if node is Player:
+			#node.set_on_ladder(true)
+	#)
+	#self.body_exited.connect(func(node: Node2D):
+		#if node is Player:
+			#node.set_on_ladder(false)
+	#)
 
 func _copy_tile(from_position: Vector2i, to_position: Vector2i):
 	var tile_id = tile_map_layer_node.get_cell_source_id(from_position)
