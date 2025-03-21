@@ -4,7 +4,6 @@ class_name Player
 @onready var sprite_node: AnimatedSprite2D = $AnimatedSprite2D
 var jump_velocity = -250.0
 var speed = 150.0
-var roll_speed = 300
 
 #var is_on_ladder: bool = false
 
@@ -12,10 +11,10 @@ var fsm: FSM
 
 func _init() -> void:
 	fsm = FSM.new()
-	fsm.set_database("node", self)
-	fsm.set_database("jump_velocity", jump_velocity)
-	fsm.set_database("speed", speed)
-	fsm.set_database("roll_speed", roll_speed)
+	fsm.debugger = true
+	fsm.set_data("node", self)
+	fsm.set_data("jump_velocity", jump_velocity)
+	fsm.set_data("speed", speed)
 	var root_state = RootState.new()
 	var idle_state = IdleState.new().bind_parent(root_state)
 	var move_state = MoveState.new().bind_parent(root_state)
@@ -34,34 +33,35 @@ func _init() -> void:
 		"root/air/falling": air_falling_state,
 		"root/roll": roll_state,
 	})
-	fsm.set_init("root/idle")
+
+func _ready() -> void:
+	fsm.init_state("root/idle")
 	
-func _physics_process(delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-	
-	fsm.update(delta)
+func _physics_process(delta: float) -> void:	
+	fsm.ui_update(delta)
 	move_and_slide()
-	#print("当前状态 {0} {1}".format([fsm.current_state_name, fsm.current_state and !!fsm.current_state.parent]))
 
 func _unhandled_input(event: InputEvent) -> void:
-	fsm.input(event)
+	fsm.ui_input(event)
 
 class RootState extends FSM.State:
-	func update(delta):
+	func ui_update(delta):
+		if not context.db.node.is_on_floor():
+			context.db.node.velocity += context.db.node.get_gravity() * delta
+
 		var direction := Input.get_axis("left", "right")
 		
 		match direction:
 			1.0:
-				context.database.node.sprite_node.flip_h = false
+				context.db.node.sprite_node.flip_h = false
 			-1.0:
-				context.database.node.sprite_node.flip_h = true
+				context.db.node.sprite_node.flip_h = true
 
 class IdleState extends FSM.State:
 	func enter():
-		context.database.node.sprite_node.play("idle")
+		context.db.node.sprite_node.play("idle")
 	
-	func input(event):
+	func ui_input(event):
 		if event.is_action_pressed("jump"):
 			context.change_state("root/jump")
 		elif event.is_action_pressed("left", true) or event.is_action_pressed("right", true):
@@ -72,23 +72,23 @@ class IdleState extends FSM.State:
 
 class MoveState extends FSM.State:
 	func enter():
-		context.database.node.sprite_node.play("move")
+		context.db.node.sprite_node.play("move")
 		
-	func update(delta):
+	func ui_update(delta):
 		var direction := Input.get_axis("left", "right")
 		
 		if direction:
-			context.database.node.velocity.x = direction * context.database.speed
+			context.db.node.velocity.x = direction * context.db.speed
 		else:
-			context.database.node.velocity.x = move_toward(context.database.node.velocity.x, 0, context.database.speed)
+			context.db.node.velocity.x = move_toward(context.db.node.velocity.x, 0, context.db.speed)
 	
-	func input(event):
+	func ui_input(event):
 		if event.is_action_pressed("roll"):
 			context.change_state("root/roll")
 		elif event.is_action_pressed("jump"):
 			context.change_state("root/jump")
 		elif not (event.is_action_pressed("left", true) or event.is_action_pressed("right", true)):
-			context.database.node.velocity.x = 0.0
+			context.db.node.velocity.x = 0.0
 			context.change_state("root/idle")
 	
 class JumpState extends FSM.State:
@@ -97,56 +97,63 @@ class JumpState extends FSM.State:
 	
 class AirState extends FSM.State:
 	func enter():
-		context.database.node.sprite_node.play("jump")
+		context.db.node.sprite_node.play("jump")
 		
 	func exit():
-		context.database.node.velocity.x = 0.0
+		context.db.node.velocity.x = 0.0
 
 class AirRisingState extends FSM.State:
 	func enter():
-		context.database.node.velocity.y = context.database.jump_velocity
+		context.db.node.velocity.y = context.db.jump_velocity
 	
-	func update(delta):
+	func ui_update(delta):
 		var direction := Input.get_axis("left", "right")
 		
 		if direction:
-			context.database.node.velocity.x = direction * context.database.speed
+			context.db.node.velocity.x = direction * context.db.speed
 		else:
-			context.database.node.velocity.x = move_toward(context.database.node.velocity.x, 0, context.database.speed)
+			context.db.node.velocity.x = move_toward(context.db.node.velocity.x, 0, context.db.speed)
 		
-		if context.database.node.velocity.y > 0:
+		if context.db.node.velocity.y > 0:
 			context.change_state("root/air/falling")
 
 class AirFallingState extends FSM.State:
-	func update(delta):
+	func ui_update(delta):
 		var direction := Input.get_axis("left", "right")
 		
 		if direction:
-			context.database.node.velocity.x = direction * context.database.speed
+			context.db.node.velocity.x = direction * context.db.speed
 		else:
-			context.database.node.velocity.x = move_toward(context.database.node.velocity.x, 0, context.database.speed)
+			context.db.node.velocity.x = move_toward(context.db.node.velocity.x, 0, context.db.speed)
 
-		if context.database.node.is_on_floor():
-			if context.database.node.velocity.x != 0.0:
+		if context.db.node.is_on_floor():
+			if context.db.node.velocity.x != 0.0:
 				context.change_state("root/move")
 			else:
 				context.change_state("root/idle")
 
 class RollState extends FSM.State:
-	func enter():
-		context.database.node.sprite_node.play("roll")
-		context.database.roll_timer = 0.3
-		context.database.direction = Input.get_axis("left", "right")
-		
-	func update(d):
-		if context.database.direction == 1.0:
-			context.database.node.velocity.x = context.database.roll_speed
-		elif context.database.direction == -1.0:
-			context.database.node.velocity.x = -1 * context.database.roll_speed
+	var _roll_speed: int
 	
-		context.database.roll_timer -= d
-		if context.database.roll_timer <= 0.0:
+	var _roll_timer: float = 0.3
+	
+	var _direction: int
+	
+	func enter():
+		context.db.node.sprite_node.play("roll")
+		_roll_timer = 0.3
+		_roll_speed = context.db.speed * 2
+		_direction = Input.get_axis("left", "right")
+		
+	func ui_update(d):
+		if _direction == 1.0:
+			context.db.node.velocity.x = _roll_speed
+		elif _direction == -1.0:
+			context.db.node.velocity.x = -1 * _roll_speed
+	
+		_roll_timer -= d
+		if _roll_timer <= 0.0:
 			context.change_state("root/move")
 		
 	func exit():
-		context.database.node.velocity.x = context.database.speed
+		context.db.node.velocity.x = context.db.speed
