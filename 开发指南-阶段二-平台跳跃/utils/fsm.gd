@@ -103,6 +103,13 @@ func ui_input(event: InputEvent):
 	while state:
 		state.ui_input(event)
 		state = state.parent
+	
+	state = states.get(current_state_name)
+	while state:
+		if state.ui_unhandled_input(event):
+			state = state.parent
+		else:
+			state = null
 
 class Context extends RefCounted:
 	var db: Dictionary[String, Variant]:
@@ -141,3 +148,8 @@ class State extends RefCounted:
 	## 存在输入事件时调用
 	func ui_input(event: InputEvent):
 		pass
+		
+	## 存在未处理输入事件时调用
+	func ui_unhandled_input(event: InputEvent) -> bool:
+		# 是否需要向上冒泡
+		return true

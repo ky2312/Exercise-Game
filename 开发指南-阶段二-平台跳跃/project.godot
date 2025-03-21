@@ -60,6 +60,11 @@ down={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="平台"
+2d_physics/layer_2="攀爬"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
