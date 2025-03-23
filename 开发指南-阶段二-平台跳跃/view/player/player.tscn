@@ -1,7 +1,12 @@
-[gd_scene load_steps=43 format=3 uid="uid://di2j1bx7jiu0g"]
+[gd_scene load_steps=48 format=3 uid="uid://di2j1bx7jiu0g"]
 
 [ext_resource type="Script" uid="uid://eulieogqhyk3" path="res://view/player/player.gd" id="1_2u1mo"]
 [ext_resource type="Texture2D" uid="uid://dp7fu5cmlgplh" path="res://assets/sprites/knight.png" id="1_jpciq"]
+[ext_resource type="Script" uid="uid://ciehe6o60haqd" path="res://view/player/states/idle.gd" id="3_hm7ld"]
+[ext_resource type="Script" uid="uid://bxb0cj25eob7l" path="res://view/player/states/move.gd" id="4_fpc1h"]
+[ext_resource type="Script" uid="uid://dgh7n6yo2ev5j" path="res://view/player/states/jump.gd" id="5_oc8tp"]
+[ext_resource type="Script" uid="uid://0x1x1spplyls" path="res://view/player/states/roll.gd" id="6_xc4wg"]
+[ext_resource type="Script" uid="uid://bx3x31lkbmk4n" path="res://view/player/states/climb.gd" id="7_tmwc8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sp7np"]
 atlas = ExtResource("1_jpciq")
@@ -320,3 +325,20 @@ frame_progress = 0.714777
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_jpciq")
+
+[node name="HSM" type="LimboHSM" parent="."]
+
+[node name="IdleState" type="LimboState" parent="HSM"]
+script = ExtResource("3_hm7ld")
+
+[node name="MoveState" type="LimboState" parent="HSM"]
+script = ExtResource("4_fpc1h")
+
+[node name="JumpState" type="LimboState" parent="HSM"]
+script = ExtResource("5_oc8tp")
+
+[node name="RollState" type="LimboState" parent="HSM"]
+script = ExtResource("6_xc4wg")
+
+[node name="ClimbState" type="LimboState" parent="HSM"]
+script = ExtResource("7_tmwc8")
