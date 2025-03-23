@@ -1,7 +1,9 @@
 extends Node
 
-var app: Framework.App
+var app: Framework
 
 func _ready() -> void:
-	app = Framework.App.new()
+	app = Framework.new()
+	app.register_model(MobModel)
+	app.register_model(PlayerModel)
 	app.run()

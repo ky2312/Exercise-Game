@@ -4,7 +4,7 @@ var speed: float
 
 func _enter() -> void:
 	var ag: Player = agent
-	speed = agent.speed / 2
+	speed = agent.model.speed.value / 2
 	ag.velocity.x = 0
 	ag.need_gravity = false
 	ag.collision_layer = 2
@@ -21,7 +21,7 @@ func _update(delta: float) -> void:
 	if not ag.inner_ladder:
 		get_root().dispatch("move")
 	elif Input.is_action_pressed("jump"):
-		ag.velocity.x = ag.get_orientation() * ag.speed
+		ag.velocity.x = ag.get_orientation() * ag.model.speed.value
 		get_root().dispatch("jump")
 
 func _exit() -> void:

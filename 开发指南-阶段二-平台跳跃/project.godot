@@ -18,10 +18,15 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*res://game_manager.gd"
+Audio="*res://audio.gd"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot-framework/plugin.cfg")
+
+[global_group]
+
+world_mobs=""
 
 [input]
 
@@ -62,8 +67,9 @@ down={
 
 [layer_names]
 
-2d_physics/layer_1="平台"
+2d_physics/layer_1="世界"
 2d_physics/layer_2="攀爬"
+2d_physics/layer_3="怪物"
 
 [rendering]
 

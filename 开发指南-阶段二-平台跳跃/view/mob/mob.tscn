@@ -1,6 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://cxsygexipbwje"]
+[gd_scene load_steps=21 format=3 uid="uid://cxsygexipbwje"]
 
 [ext_resource type="Texture2D" uid="uid://b4wjlr514y36i" path="res://assets/sprites/slime_green.png" id="1_cclgn"]
+[ext_resource type="Script" uid="uid://tmvb1702qohi" path="res://view/mob/mob.gd" id="1_k6apr"]
+[ext_resource type="BehaviorTree" uid="uid://xy1mxhfal4a7" path="res://ai/trees/mob.tres" id="3_xh4iq"]
+[ext_resource type="PackedScene" uid="uid://rk8733lbytrm" path="res://view/kill/kill.tscn" id="4_6ha1b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k6apr"]
 atlas = ExtResource("1_cclgn")
@@ -105,9 +108,16 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cclgn"]
-size = Vector2(14, 14)
+size = Vector2(12, 10)
 
-[node name="Mob" type="CharacterBody2D"]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_6ha1b"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3y0yh"]
+radius = 7.0
+height = 16.0
+
+[node name="Mob" type="CharacterBody2D" groups=["mobs"]]
+script = ExtResource("1_k6apr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dlj8e")
@@ -115,5 +125,21 @@ animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
+position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_cclgn")
+
+[node name="左探测" type="RayCast2D" parent="."]
+target_position = Vector2(-116, 1)
+
+[node name="右探测" type="RayCast2D" parent="."]
+target_position = Vector2(127, 1)
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("3_xh4iq")
+blackboard_plan = SubResource("BlackboardPlan_6ha1b")
+
+[node name="Kill" parent="." instance=ExtResource("4_6ha1b")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Kill"]
+position = Vector2(0, 5)
+shape = SubResource("CapsuleShape2D_3y0yh")

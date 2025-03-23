@@ -3,6 +3,7 @@ class_name Player
 
 @onready var sprite_node: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_node: CollisionShape2D = $CollisionShape2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hsm: LimboHSM = $HSM
 @onready var idle_state: LimboState = $HSM/IdleState
 @onready var move_state: LimboState = $HSM/MoveState
@@ -10,14 +11,17 @@ class_name Player
 @onready var roll_state: LimboState = $HSM/RollState
 @onready var climb_state: LimboState = $HSM/ClimbState
 
-var speed = 150.0
-var jump_velocity = -2.5 * speed
+#var speed = 150.0
+#var jump_velocity = -2.5 * speed
+var model: PlayerModel
 var delta: float
 var need_gravity: float = true
 var area: Area2D
 var inner_ladder: bool = false
 
 func _ready() -> void:
+	model = GameManager.app.get_model(PlayerModel)
+	
 	hsm.add_transition(idle_state, move_state, "move")
 	hsm.add_transition(idle_state, jump_state, "jump")
 	hsm.add_transition(move_state, idle_state, "idle")
@@ -31,8 +35,11 @@ func _ready() -> void:
 	hsm.initial_state = jump_state
 	hsm.initialize(self)
 	hsm.set_active(true)
-
+	
 func _physics_process(d: float) -> void:
+	if model.is_killed.value:
+		velocity = Vector2.ZERO
+		return
 	#print(hsm.get_active_state())
 	delta = d
 	compute_sprite_node_flip_h()
@@ -49,7 +56,7 @@ func _unhandled_input(event):
 func move():
 	var direction := Input.get_axis("left", "right")
 	if direction:
-		velocity.x = direction * speed
+		velocity.x = direction * model.speed.value
 	else:
 		velocity.x = lerp(velocity.x, 0.0, 0.1)
 	var is_moved = absf(velocity.x) < 1
@@ -58,7 +65,7 @@ func move():
 	return is_moved
 
 func jump():
-	velocity.y = jump_velocity
+	velocity.y = -1 * model.jump_velocity.value
 
 func fall():
 	velocity += get_gravity() * delta
@@ -85,3 +92,7 @@ func set_ladder_state(state: String, node: Area2D):
 		"exit":
 			inner_ladder = false
 			area = node
+
+func kill(node: Node2D):
+	animation_player.play("kill")
+	GameManager.app.send_command(PlayerKillCommand.new())
