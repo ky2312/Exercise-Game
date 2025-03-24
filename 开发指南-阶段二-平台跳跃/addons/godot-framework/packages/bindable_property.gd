@@ -1,5 +1,5 @@
 ## 可绑定的属性类
-extends RefCounted
+class_name FrameworkBindableProperty extends RefCounted
 
 ## 实际的属性值
 var _value
@@ -33,6 +33,17 @@ func register_with_init_value(callback: Callable):
 	callback.callv([value])
 	register(callback)
 	return Framework.UnRegisterExtension.new(_observer, "value_change", callback)
+
+static func register_with_init_value_wait_unregister(node: Node, bindablePropertys: Array[FrameworkBindableProperty], callback: Callable):
+	var values := []
+	for i in range(len(bindablePropertys)):
+		var b = bindablePropertys[i]
+		values.push_back(b.value)
+		b.register_with_init_value(
+			func(v):
+				values[i] = v
+				callback.callv(values)
+		).unregister_when_node_exit_tree(node)
 
 func unregister(callback: Callable):
 	Framework.UnRegisterExtension.new(_observer, "value_change", callback).unregister()

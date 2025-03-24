@@ -5,5 +5,5 @@ extends Area2D
 
 func _on_body_entered(body: Node2D) -> void:
 	GameManager.app.send_command(PlayerTakeCoin.new())
-	Audio.play_sfx(audio)
+	GameManager.app.audio.play_sfx(audio)
 	animation_player.play("free")

@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://3wrafoq8n0di"]
+[gd_scene load_steps=4 format=3 uid="uid://3wrafoq8n0di"]
 
 [ext_resource type="Script" uid="uid://db6xxdoa4anma" path="res://view/hud/hud.gd" id="1_y2gmo"]
+[ext_resource type="Script" uid="uid://b16ncxaent0tq" path="res://view/hud/buttons.gd" id="2_cc1r4"]
+[ext_resource type="Script" uid="uid://dcmi4sqq5kwuh" path="res://view/hud/setting.gd" id="3_ebybb"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -14,9 +16,9 @@ grow_vertical = 2
 script = ExtResource("1_y2gmo")
 
 [node name="CenterContainer" type="VBoxContainer" parent="HUD"]
-layout_mode = 0
-offset_right = 262.0
-offset_bottom = 150.0
+layout_mode = 1
+offset_right = 235.0
+offset_bottom = 120.0
 
 [node name="Coin" type="Label" parent="HUD/CenterContainer"]
 unique_name_in_owner = true
@@ -26,3 +28,51 @@ text = "xxx"
 [node name="Info" type="Label" parent="HUD/CenterContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="Buttons" type="VBoxContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -232.0
+offset_bottom = 66.0
+grow_horizontal = 0
+script = ExtResource("2_cc1r4")
+
+[node name="SaveButton" type="Button" parent="HUD/Buttons"]
+layout_mode = 2
+text = "保存进度"
+
+[node name="LoadButton" type="Button" parent="HUD/Buttons"]
+layout_mode = 2
+text = "加载进度"
+
+[node name="Setting" type="VBoxContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -221.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("3_ebybb")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Setting"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/Setting/HBoxContainer"]
+layout_mode = 2
+text = "音量设置："
+
+[node name="HSlider" type="HSlider" parent="HUD/Setting/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[connection signal="pressed" from="HUD/Buttons/SaveButton" to="HUD/Buttons" method="_on_save_button_pressed"]
+[connection signal="pressed" from="HUD/Buttons/LoadButton" to="HUD/Buttons" method="_on_load_button_pressed"]
+[connection signal="value_changed" from="HUD/Setting/HBoxContainer/HSlider" to="HUD/Setting" method="_on_h_slider_value_changed"]
